@@ -28,32 +28,31 @@ class PredictionRequest(BaseModel):
     against this model — wrong types or missing fields
     return a clean error automatically!
     """
-    country: str = Field(
-        examples="Germany",
-        description="Country where the developer works"
-    )
-    ed_level: str = Field(
-        example="Bachelor",
-        description="Highest education level"
-    )
+    country: str = Field(description="Country where the developer works")
+    ed_level: str = Field(description="Highest education level")
     years_experience: float = Field(
-        example=5.0,
         ge=0,      # greater than or equal to 0
         le=50,     # less than or equal to 50
         description="Years of professional coding experience"
     )
-    employment: str = Field(
-        example="Employed, full-time",
-        description="Employment type"
-    )
-    dev_type: str = Field(
-        example="Developer, back-end",
-        description="Type of developer role"
-    )
-    org_size: str = Field(
-        example="20 to 99 employees",
-        description="Size of the organization"
-    )
+    employment: str = Field(description="Employment type")
+    dev_type: str = Field(description="Type of developer role")
+    org_size: str = Field(description="Size of the organization")
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "country": "United States of America",
+                    "ed_level": "Master",
+                    "years_experience": 8,
+                    "employment": "Employed, full-time",
+                    "dev_type": "Developer, back-end",
+                    "org_size": "1,000 to 4,999 employees"
+                }
+            ]
+        }
+    }
 
 class PredictionResponse(BaseModel):
     """
