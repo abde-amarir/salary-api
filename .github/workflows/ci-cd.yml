@@ -56,8 +56,9 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: 🚀 Deploy to Railway
-        uses: bervProject/railway-deploy@main
-        with:
-          railway_token: ${{ secrets.RAILWAY_TOKEN }}
-          service: salary-api
+      - name: 🚀 Install Railway CLI and Deploy
+        run: |
+          npm install -g @railway/cli
+          railway up --service salary-api --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
